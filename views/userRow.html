@@ -1,0 +1,9 @@
+<tr id="user_{{ .ID }}" hx-get="/view/user/{{ .ID }}" hx-trigger="click" hx-target="#user_update" hx-swap="outerHTML">
+    <td>{{ .ID }}</td>
+    <td>{{ .Name }}</td>
+    <td>{{ .Age }}</td>
+    <td>{{ .Height }}</td>
+    <td class="delete" hx-delete="/view/user/{{ .ID }}" hx-trigger="click" hx-target="#user_{{ .ID }}" hx-swap="delete">
+        x
+    </td>
+</tr>

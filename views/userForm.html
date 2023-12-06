@@ -1,0 +1,11 @@
+<form id="user_update" hx-put="/view/user/{{ .ID }}" hx-trigger="submit" hx-target="#user_{{ .ID }}"
+    hx-swap="outerHTML">
+    <p />
+    <input name="name" placeholder="Name" value="{{ .Name }}" />
+    <p />
+    <input name="age" placeholder="Age" value="{{ .Age }}" />
+    <p />
+    <input name="height" placeholder="Height" value="{{ .Height }}" />
+    <p />
+    <button>Update</button>
+</form>
