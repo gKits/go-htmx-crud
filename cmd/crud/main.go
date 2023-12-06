@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	driver := flag.String("driver", "memory", "select the database driver between memory, postgres, sqlite3")
+	driver := flag.String("driver", "memory", "select the database driver between postgres, sqlite3")
 	conn := flag.String("conn", "", "set connection string (not needed for memory)")
 	flag.Parse()
 

@@ -27,9 +27,6 @@ func NewRepository(driver string, conn string) (Repository, error) {
 	var err error
 
 	switch driver {
-	case "memory":
-		repo = NewMemoryRepository()
-		break
 	case "postgres":
 		repo, err = NewPostgresRepository(conn)
 		break
@@ -48,93 +45,6 @@ func NewRepository(driver string, conn string) (Repository, error) {
 	}
 
 	return repo, err
-}
-
-/**
-Memory Repository
-**/
-
-type MemoryRepository struct {
-	users []User
-}
-
-func NewMemoryRepository() *MemoryRepository {
-	return &MemoryRepository{}
-}
-
-func (r *MemoryRepository) Migrate(ctx context.Context) error {
-	if r.users == nil {
-		r.users = []User{}
-	}
-
-	return nil
-}
-
-func (r *MemoryRepository) Create(ctx context.Context, user User) (*User, error) {
-	user.ID = uint(len(r.users))
-	r.users = append(r.users, user)
-
-	return &user, nil
-}
-
-func (r *MemoryRepository) All(ctx context.Context) ([]User, error) {
-	return r.users, nil
-}
-
-func (r *MemoryRepository) GetByID(ctx context.Context, id uint) (*User, error) {
-	if int(id) >= len(r.users) {
-		return nil, nil
-	}
-
-	return &r.users[id], nil
-}
-
-func (r *MemoryRepository) Update(ctx context.Context, id uint, user User) (*User, error) {
-	if int(id) >= len(r.users) {
-		return nil, nil
-	}
-
-	r.users[id] = user
-
-	return &user, nil
-}
-
-func (r *MemoryRepository) Delete(ctx context.Context, id uint) error {
-	if int(id) >= len(r.users) {
-		return nil
-	}
-
-	r.users = slices.Delete(r.users, int(id), int(id))
-
-	return nil
-}
-
-func (r *MemoryRepository) AvgAge(ctx context.Context) (float32, error) {
-	if len(r.users) == 0 {
-		return 0, nil
-	}
-
-	sum := 0
-	for _, u := range r.users {
-		sum += u.Age
-	}
-	return float32(sum) / float32(len(r.users)), nil
-}
-
-func (r *MemoryRepository) AvgHeight(ctx context.Context) (float32, error) {
-	if len(r.users) == 0 {
-		return 0, nil
-	}
-
-	sum := float32(0)
-	for _, u := range r.users {
-		sum += u.Height
-	}
-	return sum / float32(len(r.users)), nil
-}
-
-func (r *MemoryRepository) Search(ctx context.Context, search string) ([]User, error) {
-	return r.users, nil
 }
 
 /**
