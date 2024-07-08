@@ -17,7 +17,7 @@ func NewServer(addr string) Server {
 	}
 }
 
-func (s *Server) Run() {
+func (s *Server) Run() error {
 	app := fiber.New(fiber.Config{
 		Views: html.New("views", ".html"),
 	})
@@ -35,7 +35,10 @@ func (s *Server) Run() {
 		ctrl.AddRoutes(g)
 	}
 
-	app.Listen(s.addr)
+	if err := app.Listen(s.addr); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *Server) Attach(pref string, ctrl Controller) {

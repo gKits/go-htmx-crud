@@ -27,5 +27,7 @@ func main() {
 	srv := crud.NewServer(fmt.Sprintf("0.0.0.0:%d", *port))
 	srv.Attach("view", &ctrl)
 
-	srv.Run()
+	if err := srv.Run(); err != nil {
+		log.Fatal(err)
+	}
 }
