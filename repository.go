@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"slices"
 
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
@@ -29,10 +28,8 @@ func NewRepository(driver string, conn string) (Repository, error) {
 	switch driver {
 	case "postgres":
 		repo, err = NewPostgresRepository(conn)
-		break
 	case "sqlite3":
 		repo, err = NewSQLiteRepository(conn)
-		break
 	default:
 		return nil, fmt.Errorf("driver '%s' not supported", driver)
 	}
