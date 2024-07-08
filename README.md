@@ -17,5 +17,5 @@ $ cd ./go-htmx-crud
 
 3. Build/run the application
 ```shell
-$ go run cmd/crud/main.go -driver {sqlite3|postgres} -conn {dsn}
+$ go run cmd/crud/main.go -driver {sqlite3|postgres} -conn {dsn} -port {port}
 ```
