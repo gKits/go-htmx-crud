@@ -11,6 +11,7 @@ import (
 func main() {
 	driver := flag.String("driver", "sqlite3", "select the database driver between postgres, sqlite3")
 	conn := flag.String("conn", "crud.db", "set connection string")
+	port := flag.Int("port", 4000, "set port")
 	flag.Parse()
 
 	dir, _ := os.Getwd()
@@ -23,7 +24,7 @@ func main() {
 
 	ctrl := crud.NewUserController(repo)
 
-	srv := crud.NewServer("0.0.0.0:5050")
+	srv := crud.NewServer(fmt.Sprintf("0.0.0.0:%d", *port))
 	srv.Attach("view", &ctrl)
 
 	srv.Run()
