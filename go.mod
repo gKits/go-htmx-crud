@@ -1,6 +1,6 @@
 module crud
 
-go 1.21.3
+go 1.22.3
 
 require (
 	github.com/gofiber/fiber/v2 v2.50.0
